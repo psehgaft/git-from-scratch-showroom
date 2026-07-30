@@ -1,0 +1,98 @@
+= Appendix
+
+[#command-reference]
+== Command Reference
+
+[cols="1,2",options="header"]
+|===
+|Goal |Command
+|Repository status |`git status`
+|Unstaged differences |`git diff`
+|Staged differences |`git diff --staged`
+|Stage a file |`git add <file>`
+|Create a commit |`git commit -m "type: message"`
+|Visualize history |`git log --graph --decorate --oneline --all`
+|Create branch |`git switch -c <branch>`
+|Switch branch |`git switch <branch>`
+|Publish branch |`git push -u origin <branch>`
+|Download references |`git fetch origin`
+|Update main |`git pull --ff-only origin main`
+|Save temporary work |`git stash`
+|Reverse a commit |`git revert <id>`
+|Create tag |`git tag -a v1.0.0 -m "message"`
+|List builds |`oc get builds`
+|Start build |`oc start-build {app_name} --follow`
+|Check rollout |`oc rollout status deploy/{app_name}`
+|Get Route |`oc get route {app_name}`
+|===
+
+[#troubleshooting]
+== Troubleshooting
+
+=== Push rejected
+
+[source,bash]
+----
+git fetch origin
+git pull --rebase origin main
+----
+
+Resolve any conflicts, then push the feature branch again.
+
+=== Wrong file staged
+
+[source,bash]
+----
+git restore --staged <file>
+----
+
+=== Wrong branch
+
+[source,bash]
+----
+git branch --show-current
+git status
+----
+
+Commit, stash, or restore work before switching.
+
+=== Build cannot clone Git
+
+[source,bash,subs="attributes+"]
+----
+oc describe buildconfig/{app_name}
+oc get builds
+oc logs build/<build-name>
+----
+
+Check DNS, TLS trust, repository authentication, URL, and branch.
+
+=== Route does not respond
+
+[source,bash,subs="attributes+"]
+----
+oc get pods
+oc get service {app_name}
+oc get endpoints {app_name}
+oc describe route {app_name}
+oc logs deployment/{app_name}
+----
+
+[#cleanup]
+== Cleanup
+
+[source,bash]
+----
+./scripts/cleanup.sh
+----
+
+Or delete the project manually:
+
+[source,bash,subs="attributes+"]
+----
+oc delete project {openshift_project}
+----
+
+== Security Reminder
+
+Never commit tokens, private keys, kubeconfigs, pull secrets, or real passwords. Removing a secret in a later commit does not erase it from prior history.

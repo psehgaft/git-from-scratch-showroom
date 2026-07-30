@@ -1,0 +1,65 @@
+= Module 3 Lab 1: Recover and Version Safely
+
+*Before you start:* understand branches and conflicts.
+
+*Prepares you for:* releasing and deploying a known version.
+
+*Lab Type:* Operational.
+
+*Estimated Time:* 20–25 minutes.
+
+== Learning Objectives
+
+* Restore local changes.
+* Remove content from staging.
+* Store temporary work.
+* Revert a published commit.
+* Create and publish an annotated tag.
+
+== 1. Restore an unstaged change
+
+[source,bash]
+----
+git restore <file>
+----
+
+== 2. Unstage without deleting work
+
+[source,bash]
+----
+git restore --staged <file>
+----
+
+== 3. Stash work temporarily
+
+[source,bash]
+----
+git stash push -m "work in progress"
+git stash list
+git stash pop
+----
+
+== 4. Revert published history
+
+[source,bash]
+----
+git log --oneline
+git revert <COMMIT_ID>
+----
+
+`git revert` preserves history by creating a new inverse commit.
+
+== 5. Create a release tag
+
+[source,bash]
+----
+git tag -a v1.0.0 -m "Git workshop application v1.0.0"
+git show v1.0.0
+git push origin v1.0.0
+----
+
+CAUTION: Avoid `git reset --hard` and force pushes on shared branches unless an approved recovery procedure explicitly requires them.
+
+== Conclusion
+
+You can now recover common mistakes while preserving collaboration and auditability.

@@ -1,0 +1,69 @@
+= Module 1 Lab 2: Understand Git
+
+*Before you start:* complete xref:01-environment.adoc[Prepare the Environment].
+
+*Prepares you for:* creating and reviewing commits.
+
+*Lab Type:* Foundational.
+
+*Estimated Time:* 15–20 minutes.
+
+[quote]
+Git records the evolution of a project. Understanding its areas is more useful than memorizing commands.
+
+== Learning Objectives
+
+* Explain working tree, staging area, and repository.
+* Distinguish Git from Git hosting platforms.
+* Initialize and inspect a local repository.
+
+== 1. Git's main areas
+
+[source,text]
+----
+Working tree  ->  Staging area  ->  Local repository  ->  Remote
+  edit              git add            git commit          git push
+----
+
+* The *working tree* contains files you edit.
+* The *staging area* selects the exact content of the next commit.
+* The *local repository* stores confirmed history.
+* The *remote* supports team collaboration.
+
+== 2. Create a sandbox repository
+
+[source,bash]
+----
+mkdir /tmp/git-sandbox
+cd /tmp/git-sandbox
+git init
+git status
+----
+
+Create a file:
+
+[source,bash]
+----
+printf '# Git Sandbox\n' > README.md
+git status
+----
+
+Observe that the file is untracked.
+
+== 3. Clean up
+
+[source,bash]
+----
+cd -
+rm -rf /tmp/git-sandbox
+----
+
+== Knowledge Check
+
+. Does `git add` upload data to the remote server?
+. Does a commit automatically exist on GitHub or GitLab?
+. Which command shows the current state of the working tree?
+
+== Conclusion
+
+You now have the mental model required to understand every command used in the next labs.

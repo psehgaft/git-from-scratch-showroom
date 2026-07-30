@@ -1,0 +1,59 @@
+= Environment Details
+
+Keep this page open in a separate browser tab during the workshop.
+
+IMPORTANT: The values below are placeholders or dynamically injected lab attributes. Never commit real passwords or tokens to a public repository.
+
+== OpenShift
+
+[cols="1,2",options="header"]
+|===
+|Resource |Value
+|Web Console |{openshift_cluster_console_url}
+|API Server |`{openshift_api_server_url}`
+|Username |`{openshift_username}`
+|Password |`{openshift_password}`
+|Project |`{openshift_project}`
+|===
+
+== Git Server
+
+[cols="1,2",options="header"]
+|===
+|Resource |Value
+|Git Server |{git_server_url}
+|Username |`{git_username}`
+|Password or token |`{git_password}`
+|Repository |`{git_repository_url}`
+|Default branch |`{git_default_branch}`
+|===
+
+== Application
+
+[cols="1,2",options="header"]
+|===
+|Resource |Value
+|Application name |`{app_name}`
+|Source directory |`lab-content/app`
+|OpenShift template |`lab-content/openshift/template.yaml`
+|Container port |`8080`
+|===
+
+== Login Commands
+
+[source,bash,subs="attributes+"]
+----
+oc login {openshift_api_server_url} \
+  -u {openshift_username} \
+  -p '{openshift_password}'
+
+oc whoami
+----
+
+Clone the repository:
+
+[source,bash,subs="attributes+"]
+----
+git clone {git_repository_url}
+cd git-from-scratch-showroom
+----

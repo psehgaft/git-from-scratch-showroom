@@ -1,0 +1,84 @@
+= Module 1 Lab 1: Prepare the Environment
+
+*Before you start:*
+
+* Open xref:environment-details.adoc[Environment Details].
+* Confirm that your workstation has a terminal.
+
+*Prepares you for:* all remaining labs.
+
+*Lab Type:* Foundational.
+
+*Estimated Time:* 15–20 minutes.
+
+[quote]
+Validate the tools, identity, Git access, and OpenShift access before creating any workshop changes.
+
+== Learning Objectives
+
+After completing this lab, you will be able to:
+
+* Validate Git and the `oc` client.
+* Configure your Git author identity.
+* Authenticate to OpenShift.
+* Confirm access to the remote repository.
+
+== 1. Validate the tools
+
+[source,bash]
+----
+git --version
+oc version --client
+./scripts/preflight.sh
+----
+
+== 2. Configure Git identity
+
+[source,bash]
+----
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+git config --global init.defaultBranch main
+----
+
+Review the configuration:
+
+[source,bash]
+----
+git config --global --list
+----
+
+== 3. Log in to OpenShift
+
+[source,bash,subs="attributes+"]
+----
+oc login {openshift_api_server_url} \
+  -u {openshift_username} \
+  -p '{openshift_password}'
+
+oc whoami
+oc cluster-info
+----
+
+== 4. Clone the repository
+
+[source,bash,subs="attributes+"]
+----
+git clone {git_repository_url}
+cd git-from-scratch-showroom
+git remote -v
+----
+
+== Verification
+
+[source,bash]
+----
+git config --global user.name
+git config --global user.email
+git status
+oc whoami
+----
+
+== Conclusion
+
+You validated the local tools, configured your Git author identity, authenticated to OpenShift, and cloned the workshop repository.

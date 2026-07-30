@@ -1,0 +1,69 @@
+= Module 3 Lab 4: Final Challenge — From Commit to OpenShift
+
+*Before you start:* complete the previous labs.
+
+*Lab Type:* Independent assessment.
+
+*Estimated Time:* 30–35 minutes.
+
+== Objective
+
+Deliver a reviewed application change and prove that the exact Git revision is running on OpenShift.
+
+== Challenge
+
+Complete the following without copying the full command sequence from the instructor:
+
+. Update local `main`.
+. Create `feature/<username>-final`.
+. Personalize the application title and message.
+. Review the change before staging.
+. Create a Conventional Commit.
+. Push the branch.
+. Open a Pull Request or Merge Request.
+. Obtain peer review.
+. Merge the request.
+. Update local `main`.
+. Create and push tag `v1.1.0`.
+. Start an OpenShift build.
+. Wait for the rollout.
+. Validate the Route.
+. Record the deployed commit ID.
+
+== Required Evidence
+
+[source,bash,subs="attributes+"]
+----
+git log -1 --oneline
+git tag --points-at HEAD
+oc get build -l buildconfig={app_name}
+oc get deployment {app_name}
+oc get service {app_name}
+oc get route {app_name}
+----
+
+== Success Criteria
+
+* The working tree is clean.
+* The final change exists on `main`.
+* The Pull Request was reviewed.
+* The version tag points to the expected commit.
+* The latest build is `Complete`.
+* The Deployment reports available replicas.
+* The Service has endpoints.
+* The Route responds successfully.
+
+== Reflection
+
+Answer:
+
+. Where did the change exist before `git add`?
+. What changed after `git commit`?
+. What changed after `git push`?
+. What did the Pull Request add to the process?
+. How did OpenShift obtain the application source?
+. What would Argo CD add to this workflow?
+
+== Conclusion
+
+You completed the full path from local edit to a reviewed and versioned deployment on OpenShift.

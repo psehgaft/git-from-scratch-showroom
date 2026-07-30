@@ -1,0 +1,67 @@
+= Module 2 Lab 2: Synchronize with Remotes
+
+*Before you start:* have a committed feature branch.
+
+*Prepares you for:* Pull Request collaboration.
+
+*Lab Type:* Hands-on.
+
+*Estimated Time:* 20–25 minutes.
+
+== Learning Objectives
+
+* Inspect remote configuration.
+* Publish a branch.
+* Explain fetch and pull.
+* Configure an upstream tracking branch.
+
+== 1. Inspect remotes
+
+[source,bash]
+----
+git remote -v
+git branch -vv
+----
+
+== 2. Publish the feature branch
+
+[source,bash]
+----
+git push -u origin feature/personalize-homepage
+----
+
+The `-u` option records the upstream branch.
+
+== 3. Fetch without integrating
+
+[source,bash]
+----
+git fetch origin
+git log --oneline --decorate --all -10
+----
+
+`git fetch` updates remote-tracking references. It does not modify your working tree.
+
+== 4. Update main safely
+
+After another change is merged by the instructor:
+
+[source,bash]
+----
+git switch main
+git pull --ff-only origin main
+----
+
+The `--ff-only` option prevents an unexpected merge commit.
+
+== Verification
+
+[source,bash]
+----
+git remote show origin
+git branch -vv
+----
+
+== Conclusion
+
+You published a branch and learned how local branches relate to remote-tracking references.

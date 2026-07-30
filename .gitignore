@@ -1,0 +1,28 @@
+# OS and editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+kubeconfig*
+pull-secret*
+
+# Logs and temporary files
+*.log
+tmp/
+.cache/
+
+# Antora output
+www/
+node_modules/
+
+# Workshop runtime
+.workshop.env

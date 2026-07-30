@@ -1,0 +1,101 @@
+= Module 3 Lab 2: Build and Deploy from Git on OpenShift
+
+*Before you start:*
+
+* Merge the application change into `main`.
+* Confirm OpenShift can access the repository.
+* Confirm access to an assigned OpenShift project.
+
+*Prepares you for:* the final challenge and GitOps concepts.
+
+*Lab Type:* Integrated hands-on lab.
+
+*Estimated Time:* 40–45 minutes.
+
+[quote]
+OpenShift will clone the repository, build a container image, update an ImageStream, roll out a Deployment, and publish the application through a Route.
+
+== Learning Objectives
+
+* Process an OpenShift Template.
+* Build a container image from Git.
+* Observe the build and rollout lifecycle.
+* Validate Service, endpoints, and Route.
+* Trigger a new deployment after a Git change.
+
+== 1. Configure variables
+
+[source,bash,subs="attributes+"]
+----
+export GIT_REPO_URL="{git_repository_url}"
+export GIT_REF="{git_default_branch}"
+export APP_NAME="{app_name}"
+export PROJECT="{openshift_project}"
+----
+
+== 2. Deploy
+
+[source,bash]
+----
+./scripts/deploy-from-git.sh
+----
+
+The script creates an `ImageStream`, `BuildConfig`, `Deployment`, `Service`, and `Route`.
+
+== 3. Observe the build
+
+[source,bash,subs="attributes+"]
+----
+oc get builds
+oc logs -f bc/{app_name}
+----
+
+Trigger another build when required:
+
+[source,bash,subs="attributes+"]
+----
+oc start-build {app_name} --follow
+----
+
+== 4. Validate the rollout
+
+[source,bash,subs="attributes+"]
+----
+oc rollout status deployment/{app_name} --timeout=5m
+oc get pods
+oc get service {app_name}
+oc get route {app_name}
+----
+
+== 5. Test the Route
+
+[source,bash,subs="attributes+"]
+----
+ROUTE_URL="https://$(oc get route {app_name} -o jsonpath='{.spec.host}')"
+echo "${ROUTE_URL}"
+curl -kI "${ROUTE_URL}"
+----
+
+== 6. Deploy a new Git revision
+
+After merging a new change to `main`:
+
+[source,bash,subs="attributes+"]
+----
+oc start-build {app_name} --follow
+oc rollout status deployment/{app_name} --timeout=5m
+----
+
+Refresh the Route and confirm the updated page.
+
+== Verification
+
+[source,bash,subs="attributes+"]
+----
+./scripts/validate-deployment.sh
+oc get build,imagestream,deployment,service,route
+----
+
+== Conclusion
+
+You connected Git history to a repeatable OpenShift build and deployment lifecycle.

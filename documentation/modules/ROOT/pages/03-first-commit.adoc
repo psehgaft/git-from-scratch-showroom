@@ -1,0 +1,86 @@
+= Module 1 Lab 3: Create Meaningful Commits
+
+*Before you start:* complete the environment and foundations labs.
+
+*Prepares you for:* branches and collaboration.
+
+*Lab Type:* Hands-on.
+
+*Estimated Time:* 20–25 minutes.
+
+== Learning Objectives
+
+* Inspect repository status and differences.
+* Select content for a commit.
+* Create a clear commit message.
+* Read a concise Git history.
+
+== 1. Inspect the repository
+
+[source,bash]
+----
+git status
+git log --oneline --decorate --graph --all -10
+----
+
+== 2. Add a participant profile
+
+[source,bash]
+----
+mkdir -p participants
+cat > "participants/$(whoami).md" <<EOF
+# Participant: $(whoami)
+
+- Goal: learn a professional Git workflow.
+- Platform: OpenShift.
+EOF
+----
+
+Review the untracked file:
+
+[source,bash]
+----
+git status
+git diff --no-index /dev/null "participants/$(whoami).md" || true
+----
+
+== 3. Stage the change
+
+[source,bash]
+----
+git add "participants/$(whoami).md"
+git diff --staged
+----
+
+== 4. Commit the change
+
+[source,bash]
+----
+git commit -m "docs: add participant profile"
+git log -1 --stat
+----
+
+== Commit Message Guidance
+
+[source,text]
+----
+feat: add a capability
+fix: correct a defect
+docs: improve documentation
+test: add or update validation
+chore: perform repository maintenance
+----
+
+== Verification
+
+[source,bash]
+----
+git status
+git show --stat --oneline HEAD
+----
+
+The working tree should be clean.
+
+== Conclusion
+
+You created a focused, reviewable commit and verified its exact contents.

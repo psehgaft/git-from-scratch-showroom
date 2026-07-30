@@ -1,0 +1,13 @@
+{
+  "name": "git-from-scratch-workshop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dependency-free Node.js application for the Git from Scratch workshop",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node test.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

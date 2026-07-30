@@ -1,0 +1,29 @@
+name: modules
+title: "Git from Scratch"
+version: master
+start_page: index.adoc
+nav:
+  - modules/ROOT/nav.adoc
+
+asciidoc:
+  attributes:
+    lab_name: "Git from Scratch: Master Version Control Like a Pro"
+    page-pagination: true
+    participant_id: user1
+    workshop_duration: "4 hours"
+    openshift_cluster_console_url: https://console-openshift-console.apps.cluster.example.com
+    openshift_api_server_url: https://api.cluster.example.com:6443
+    openshift_username: user1
+    openshift_password: openshiftPassword
+    openshift_project: git-workshop-user1
+    git_server_url: https://git.example.com
+    git_username: user1
+    git_password: gitPassword
+    git_repository_url: https://git.example.com/user1/git-from-scratch-showroom.git
+    git_default_branch: main
+    app_name: git-workshop
+    page-links:
+      - url: https://git-scm.com/docs
+        text: Git Documentation
+      - url: https://docs.redhat.com/en/documentation/openshift_container_platform/
+        text: OpenShift Documentation

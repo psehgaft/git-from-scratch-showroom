@@ -1,0 +1,61 @@
+= Module 2 Lab 3: Review with Pull Requests
+
+*Before you start:* publish `feature/personalize-homepage`.
+
+*Prepares you for:* controlled integration and conflict resolution.
+
+*Lab Type:* Collaborative.
+
+*Estimated Time:* 20–25 minutes.
+
+== Learning Objectives
+
+* Open a Pull Request or Merge Request.
+* Review a diff before integration.
+* Document validation evidence.
+* Update local `main` after merge.
+
+== 1. Open the request
+
+In the Git platform:
+
+. Select `feature/personalize-homepage` as the source branch.
+. Select `main` as the target branch.
+. Use the title `feat: personalize workshop homepage`.
+. Add a concise description and validation steps.
+. Request review from another participant.
+
+== 2. Review another participant's change
+
+Check:
+
+* Scope matches the title.
+* No secrets are included.
+* HTML remains valid.
+* The change is understandable.
+* Validation evidence is present.
+
+== 3. Integrate
+
+Use the merge strategy selected by the instructor. For beginner workshops, squash merge keeps `main` concise.
+
+== 4. Synchronize locally
+
+[source,bash]
+----
+git switch main
+git pull --ff-only origin main
+git branch -d feature/personalize-homepage
+----
+
+== Verification
+
+[source,bash]
+----
+git log --graph --decorate --oneline --all -10
+git status
+----
+
+== Conclusion
+
+You completed a reviewed integration instead of pushing directly to the main branch.

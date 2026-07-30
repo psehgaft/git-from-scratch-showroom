@@ -1,0 +1,57 @@
+= Module 3 Lab 3: Introduction to GitOps
+
+*Before you start:* deploy the application from Git.
+
+*Prepares you for:* Argo CD, OpenShift GitOps, and declarative operations.
+
+*Lab Type:* Conceptual and demonstrative.
+
+*Estimated Time:* 10–15 minutes.
+
+== Learning Objectives
+
+* Explain Git as a source of truth.
+* Compare imperative delivery with reconciliation.
+* Identify the role of Pull Requests in cluster governance.
+
+== 1. Imperative workflow
+
+[source,text]
+----
+Engineer -> oc apply / oc start-build -> OpenShift
+----
+
+The person directly initiates the cluster change.
+
+== 2. GitOps workflow
+
+[source,text]
+----
+Commit -> Pull Request -> Merge -> Argo CD -> Reconciliation -> OpenShift
+----
+
+A controller continuously compares the desired state in Git with the actual state in the cluster.
+
+== 3. Benefits
+
+* Reviewed configuration changes.
+* Auditable history.
+* Repeatable environments.
+* Drift detection.
+* Rollback through Git history.
+* Reduced direct modification of production clusters.
+
+== 4. Workshop repository readiness
+
+This repository already stores:
+
+* Application source.
+* Container build instructions.
+* OpenShift Template.
+* Deployment, Service, and Route definitions.
+
+These assets can be reorganized into Kustomize overlays or Helm values for an OpenShift GitOps exercise.
+
+== Conclusion
+
+Git provides history and collaboration; GitOps adds continuous reconciliation of the desired platform state.

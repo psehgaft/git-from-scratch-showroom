@@ -1,0 +1,55 @@
+= Git from Scratch: Master Version Control Like a Pro
+
+Welcome to *Git from Scratch*.
+
+== Overview
+
+This workshop provides a progressive, hands-on path from the first Git configuration to a collaborative workflow connected to Red Hat OpenShift.
+
+Through a series of guided labs, you will practice:
+
+* Git configuration and repository fundamentals.
+* Working tree, staging area, commits, and history.
+* Feature branches and short-lived development workflows.
+* Remote repositories, fetch, pull, and push.
+* Pull Requests or Merge Requests and peer review.
+* Merge conflict resolution.
+* Safe recovery with restore, stash, and revert.
+* Semantic version tags.
+* Building and deploying an application from Git in OpenShift.
+* The conceptual transition from Git to GitOps.
+
+== Prerequisites
+
+Before starting, ensure you have:
+
+* Basic command-line familiarity.
+* Git installed.
+* The OpenShift `oc` client installed.
+* Access to a remote Git repository.
+* Access to an OpenShift project or permission to create one.
+* Network access from OpenShift to the Git server and the approved base-image registry.
+
+== Lab Structure
+
+The workshop is organized into three sections:
+
+. *Foundations* — environment, Git mental model, and commits.
+. *Collaboration* — branches, remotes, Pull Requests, and conflicts.
+. *Professional Workflow* — recovery, releases, OpenShift, GitOps, and final challenge.
+
+== Learning Outcomes
+
+By the end of this workshop, you will be able to:
+
+* Explain the difference between Git and a Git hosting platform.
+* Create clear and auditable commits.
+* Isolate work in branches.
+* Collaborate safely through code review.
+* Resolve common Git problems without losing work.
+* Build and publish a versioned application on OpenShift.
+* Describe how Git supports CI/CD and GitOps practices.
+
+== Getting Started
+
+Begin with xref:environment-details.adoc[Environment Details], then continue to xref:01-environment.adoc[Module 1 Lab 1: Prepare the Environment].

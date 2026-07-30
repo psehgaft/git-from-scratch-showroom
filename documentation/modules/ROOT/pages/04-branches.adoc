@@ -1,0 +1,71 @@
+= Module 2 Lab 1: Work with Branches
+
+*Before you start:* create the participant commit.
+
+*Prepares you for:* publishing changes and opening a Pull Request.
+
+*Lab Type:* Hands-on.
+
+*Estimated Time:* 30–35 minutes.
+
+== Learning Objectives
+
+* Create and switch branches.
+* Keep a feature isolated from `main`.
+* Compare branch changes.
+* Visualize the commit graph.
+
+== 1. Create a feature branch
+
+[source,bash]
+----
+git switch -c feature/personalize-homepage
+git branch --show-current
+----
+
+== 2. Edit the application
+
+Open `lab-content/app/public/index.html` and personalize the main heading.
+
+Example:
+
+[source,html]
+----
+<h1>Git from Scratch — My OpenShift Lab</h1>
+----
+
+Review the exact change:
+
+[source,bash]
+----
+git diff -- lab-content/app/public/index.html
+----
+
+== 3. Commit on the branch
+
+[source,bash]
+----
+git add lab-content/app/public/index.html
+git commit -m "feat: personalize workshop homepage"
+----
+
+== 4. Compare branch history
+
+[source,bash]
+----
+git log --graph --decorate --oneline --all
+git diff main...feature/personalize-homepage
+----
+
+== Verification
+
+[source,bash]
+----
+git branch -vv
+git status
+git show --stat HEAD
+----
+
+== Conclusion
+
+Your change is isolated in a short-lived feature branch and `main` remains unchanged.

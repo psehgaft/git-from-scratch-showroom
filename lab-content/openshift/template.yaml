@@ -1,0 +1,152 @@
+apiVersion: template.openshift.io/v1
+kind: Template
+metadata:
+  name: git-workshop
+  annotations:
+    description: Build and deploy the Git from Scratch sample application from a Git repository.
+parameters:
+  - name: APP_NAME
+    value: git-workshop
+    required: true
+  - name: GIT_REPO_URL
+    required: true
+  - name: GIT_REF
+    value: main
+    required: true
+  - name: CONTEXT_DIR
+    value: lab-content/app
+    required: true
+  - name: CPU_REQUEST
+    value: 50m
+  - name: MEMORY_REQUEST
+    value: 64Mi
+  - name: CPU_LIMIT
+    value: 500m
+  - name: MEMORY_LIMIT
+    value: 256Mi
+objects:
+  - apiVersion: image.openshift.io/v1
+    kind: ImageStream
+    metadata:
+      name: ${APP_NAME}
+      labels:
+        app.kubernetes.io/name: ${APP_NAME}
+        app.kubernetes.io/part-of: git-from-scratch
+    spec:
+      lookupPolicy:
+        local: true
+
+  - apiVersion: build.openshift.io/v1
+    kind: BuildConfig
+    metadata:
+      name: ${APP_NAME}
+      labels:
+        app.kubernetes.io/name: ${APP_NAME}
+        app.kubernetes.io/part-of: git-from-scratch
+    spec:
+      runPolicy: Serial
+      source:
+        type: Git
+        git:
+          uri: ${GIT_REPO_URL}
+          ref: ${GIT_REF}
+        contextDir: ${CONTEXT_DIR}
+      strategy:
+        type: Docker
+        dockerStrategy:
+          dockerfilePath: Containerfile
+      output:
+        to:
+          kind: ImageStreamTag
+          name: ${APP_NAME}:latest
+      triggers:
+        - type: ConfigChange
+
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      name: ${APP_NAME}
+      labels:
+        app.kubernetes.io/name: ${APP_NAME}
+        app.kubernetes.io/part-of: git-from-scratch
+      annotations:
+        image.openshift.io/triggers: >-
+          [{"from":{"kind":"ImageStreamTag","name":"${APP_NAME}:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"${APP_NAME}\")].image"}]
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          app.kubernetes.io/name: ${APP_NAME}
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: ${APP_NAME}
+            app.kubernetes.io/part-of: git-from-scratch
+        spec:
+          containers:
+            - name: ${APP_NAME}
+              image: ${APP_NAME}:latest
+              imagePullPolicy: Always
+              ports:
+                - name: http
+                  containerPort: 8080
+                  protocol: TCP
+              readinessProbe:
+                httpGet:
+                  path: /readyz
+                  port: http
+                initialDelaySeconds: 3
+                periodSeconds: 5
+              livenessProbe:
+                httpGet:
+                  path: /healthz
+                  port: http
+                initialDelaySeconds: 10
+                periodSeconds: 10
+              resources:
+                requests:
+                  cpu: ${CPU_REQUEST}
+                  memory: ${MEMORY_REQUEST}
+                limits:
+                  cpu: ${CPU_LIMIT}
+                  memory: ${MEMORY_LIMIT}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                runAsNonRoot: true
+                seccompProfile:
+                  type: RuntimeDefault
+
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      name: ${APP_NAME}
+      labels:
+        app.kubernetes.io/name: ${APP_NAME}
+        app.kubernetes.io/part-of: git-from-scratch
+    spec:
+      selector:
+        app.kubernetes.io/name: ${APP_NAME}
+      ports:
+        - name: http
+          port: 8080
+          targetPort: http
+
+  - apiVersion: route.openshift.io/v1
+    kind: Route
+    metadata:
+      name: ${APP_NAME}
+      labels:
+        app.kubernetes.io/name: ${APP_NAME}
+        app.kubernetes.io/part-of: git-from-scratch
+    spec:
+      to:
+        kind: Service
+        name: ${APP_NAME}
+      port:
+        targetPort: http
+      tls:
+        termination: edge
+        insecureEdgeTerminationPolicy: Redirect

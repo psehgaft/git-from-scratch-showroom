@@ -1,0 +1,95 @@
+= Module 2 Lab 4: Resolve Merge Conflicts
+
+*Before you start:* complete the Pull Request lab.
+
+*Prepares you for:* safe recovery and professional collaboration.
+
+*Lab Type:* Troubleshooting.
+
+*Estimated Time:* 25–30 minutes.
+
+== Learning Objectives
+
+* Explain why a merge conflict occurs.
+* Identify conflicted files.
+* Resolve markers manually.
+* Abort an unsafe merge.
+
+== 1. Create a controlled conflict
+
+Create a branch and change the `<h1>` line:
+
+[source,bash]
+----
+git switch main
+git switch -c feature/blue-team-title
+# Edit lab-content/app/public/index.html
+git add lab-content/app/public/index.html
+git commit -m "feat: add blue team title"
+----
+
+Create a second branch from `main`, edit the same line differently, and commit:
+
+[source,bash]
+----
+git switch main
+git switch -c feature/platform-team-title
+# Edit the same <h1> line
+git add lab-content/app/public/index.html
+git commit -m "feat: add platform team title"
+----
+
+== 2. Merge the first branch
+
+[source,bash]
+----
+git merge feature/blue-team-title
+----
+
+Inspect the state:
+
+[source,bash]
+----
+git status
+git diff --name-only --diff-filter=U
+----
+
+== 3. Resolve markers
+
+[source,text]
+----
+<<<<<<< HEAD
+<h1>Git Workshop — Platform Team</h1>
+=======
+<h1>Git Workshop — Blue Team</h1>
+>>>>>>> feature/blue-team-title
+----
+
+Replace the block with the agreed final content, remove all markers, and run:
+
+[source,bash]
+----
+git add lab-content/app/public/index.html
+git commit -m "merge: resolve homepage title conflict"
+----
+
+== 4. Alternative: abort
+
+Before committing the resolution:
+
+[source,bash]
+----
+git merge --abort
+----
+
+== Verification
+
+[source,bash]
+----
+git status
+git log --graph --decorate --oneline --all -10
+----
+
+== Conclusion
+
+Git stopped because it could not decide which content was correct. You supplied the human decision and completed the integration.
