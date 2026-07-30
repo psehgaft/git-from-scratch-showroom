@@ -14,7 +14,7 @@ asciidoc:
     openshift_cluster_console_url: https://console-openshift-console.apps.cluster-twckk.twckk.sandbox1352.opentlc.com/
     openshift_api_server_url: https://api.cluster-twckk.twckk.sandbox1352.opentlc.com:6443
     openshift_username: user#
-    openshift_password: ODYwODI3
+    openshift_password: <PASSWORD>
     openshift_project: git-workshop-user#
     git_server_url: https://github.com
     git_username: user#
