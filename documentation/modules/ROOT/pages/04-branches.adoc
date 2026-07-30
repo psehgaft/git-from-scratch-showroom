@@ -19,7 +19,7 @@
 
 [source,bash]
 ----
-git switch -c feature/personalize-homepage
+git switch -c feature/personalize-homepage-<YOUR-NAME>
 git branch --show-current
 ----
 
